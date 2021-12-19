@@ -1,45 +1,40 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+// Components
+import Search from "./Components/Search/Search";
+import SearchResults from "./Components/SearchResults/SearchResults";
+// Images
+import Logo from "./Components/Logo/logo.svg";
+import Illustration from "./Components/Illustration/Illustration.svg";
 
 function App() {
-  const [count, setCount] = useState(0)
+  //! set back this property for normal behaviour
+  // const [appArrondissement, setAppArrondissement] = useState(null);
+  const [appArrondissement, setAppArrondissement] = useState(75015);
+
+  //Get arrondissement from the Search Component
+  const getArr = (data) => {
+    setAppArrondissement(data);
+  };
+
+  const resetArrondissement = () => {
+    setAppArrondissement(null);
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <img src={Logo} className="logo" alt="Wanna Pee in Paris Logo" />
+      <img
+        src={Illustration}
+        className="illustration"
+        alt="Home page illustration"
+      />
+      {appArrondissement === null && <Search getArr={getArr} />}
+      {appArrondissement && (
+        <SearchResults data={appArrondissement} reset={resetArrondissement} />
+      )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

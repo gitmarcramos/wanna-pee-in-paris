@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAA;EACV,KAAK,EAAE,GAAG;CACb",
+    "sources": [
+        "ErrorMsg.scss"
+    ],
+    "names": [],
+    "file": "ErrorMsg.css"
+}

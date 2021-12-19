@@ -1,0 +1,61 @@
+.main-search {
+  background-color: var(--white);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 1.6rem 1.6rem 0 0;
+  padding-bottom: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2.4rem;
+}
+
+.main-search .search-options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: .8rem;
+}
+
+.main-search .search-options .search-bar {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.main-search .search-options .search-bar .search-input {
+  width: 80%;
+  border-radius: .8rem 0 0 .8rem;
+  outline: none;
+  border: 2px solid var(--contrast);
+  padding: .7rem;
+  height: 4.6rem;
+}
+
+.main-search .search-options .search-bar .button--search {
+  height: 4.6rem;
+  width: 20%;
+}
+
+.main-search .search-options .button--main {
+  height: 4.6rem;
+  width: 100%;
+}
+/*# sourceMappingURL=Search.css.map */
