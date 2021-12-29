@@ -1,0 +1,50 @@
+.loader {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main);
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    #loader-out {
+        animation: out 800ms linear infinite;
+        transform-origin: center;
+        opacity: 0;
+        transform: rotate(-360deg);
+    }
+
+    #loader-middle {
+        animation: out 1000ms linear infinite reverse;
+        transform-origin: center;
+        opacity: 0;
+        transform: rotate(-360deg);
+    }
+
+    #loader-in {
+        animation: in 1400ms linear infinite;
+        transform-origin: center;
+        opacity: 0;
+        transform: rotate(-360deg);
+    }
+
+    @keyframes out {
+        to {
+            stroke-dashoffset: 200px;
+            transform: rotate(360deg);
+            opacity: 1
+        }
+    }
+
+    @keyframes in {
+        to {
+            stroke-dashoffset: 20px;
+            transform: rotate(360deg);
+            opacity: 1
+        }
+    }
+
+}

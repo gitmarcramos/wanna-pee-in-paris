@@ -1,0 +1,87 @@
+.loader {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--main);
+  position: absolute;
+  z-index: 100;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2.4rem;
+}
+
+.loader #loader-out {
+  -webkit-animation: out 800ms linear infinite;
+          animation: out 800ms linear infinite;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  opacity: 0;
+  -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+}
+
+.loader #loader-middle {
+  animation: out 1000ms linear infinite reverse;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  opacity: 0;
+  -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+}
+
+.loader #loader-in {
+  -webkit-animation: in 1400ms linear infinite;
+          animation: in 1400ms linear infinite;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  opacity: 0;
+  -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+}
+
+@-webkit-keyframes out {
+  to {
+    stroke-dashoffset: 200px;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes out {
+  to {
+    stroke-dashoffset: 200px;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes in {
+  to {
+    stroke-dashoffset: 20px;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes in {
+  to {
+    stroke-dashoffset: 20px;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+/*# sourceMappingURL=Loader.css.map */

@@ -40,18 +40,33 @@ export default function Search(props) {
   ];
 
   const handleArrondissement = () => {
-    if (isNaN(input) || !arrArrondissements.includes(input)) {
-      alert("Veuillez entrer un arrondissement de Paris entre 75001 et 75020");
-    } else {
+    if (arrArrondissements.includes(input)) {
       setArrondissement(input);
       setInput("");
     }
   };
 
+  // State of user geolocation
+  const [geoLocate, setGeolocate] = useState({
+    latitude: null,
+    longitude: null,
+  });
+
+  // Handler to get user geolocation when click on button
+  const handleGeoLocate = () => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setGeolocate({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  };
+
   //Sends the arrondissement to the App
   useEffect(() => {
     props.getArr(arrondissement);
-  }, [arrondissement]);
+    props.getGeolocate(geoLocate)
+  }, [arrondissement, geoLocate]);
 
   return (
     <div className="main-search container">
@@ -72,11 +87,16 @@ export default function Search(props) {
             Go !
           </button>
         </div>
-        {(input.length > 5 || isNaN(input)) && (
+        {(input.length > 5 ||
+          isNaN(input) ||
+          (input.length === 5 && !arrArrondissements.includes(input))) && (
           <ErrorMsg msg="Veuillez entrer un arrondissement de Paris entre 75001 et 75020" />
         )}
+
         <span className="body-min">ou</span>
-        <button className="button button--main">Géolocalisez-moi !</button>
+        <button className="button button--main" onClick={handleGeoLocate}>
+          Géolocalisez-moi !
+        </button>
       </div>
     </div>
   );

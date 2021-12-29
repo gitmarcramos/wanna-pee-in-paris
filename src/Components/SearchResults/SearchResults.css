@@ -1,10 +1,11 @@
 .search-results {
   width: 100%;
-  background-color: white;
-  position: absolute;
+  background-color: var(--bg);
+  position: fixed;
   z-index: 10;
   inset: 120px 0 0 0;
   border-radius: 1.6rem 1.6rem 0 0;
+  overflow-y: scroll;
 }
 
 .search-results .search-results__data {
@@ -23,11 +24,12 @@
 }
 
 .search-results .search-results__data .close-svg {
-  position: absolute;
-  top: -.8rem;
-  right: -.8rem;
+  position: fixed;
+  top: 12.5rem;
+  right: .4rem;
   padding: .8rem;
   cursor: pointer;
+  z-index: 100;
 }
 
 .search-results .search-results__data .search-results__data--filter {
@@ -54,5 +56,17 @@
   display: -ms-flexbox;
   display: flex;
   gap: .4rem;
+}
+
+.toilet {
+  padding: 2.4rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1.6rem;
 }
 /*# sourceMappingURL=SearchResults.css.map */
