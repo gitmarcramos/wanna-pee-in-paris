@@ -9,7 +9,6 @@ import Illustration from "./Components/Illustration/Illustration.svg";
 
 function App() {
   const [appArrondissement, setAppArrondissement] = useState(null);
-  // const [appArrondissement, setAppArrondissement] = useState(75015);
 
   //Get arrondissement from the Search Component
   const getArr = (data) => {
@@ -18,6 +17,7 @@ function App() {
 
   const resetArrondissement = () => {
     setAppArrondissement(null);
+    setAppGeolocation({ latitude: null, longitude: null });
   };
 
   // State geolocation
@@ -26,6 +26,7 @@ function App() {
     longitude: null,
   });
 
+
   // Get geolocation from te Search Component
   const getGeolocate = (geoData) => {
     setAppGeolocation(geoData);
@@ -33,7 +34,12 @@ function App() {
 
   return (
     <div className="App">
-      <img src={Logo} className="logo" alt="Wanna Pee in Paris Logo" />
+      <img
+        src={Logo}
+        className="logo"
+        alt="Wanna Pee in Paris Logo"
+        onClick={resetArrondissement}
+      />
       <img
         src={Illustration}
         className="illustration"
@@ -42,8 +48,12 @@ function App() {
       {appArrondissement === null && (
         <Search getArr={getArr} getGeolocate={getGeolocate} />
       )}
-      {appArrondissement && (
-        <SearchResults data={appArrondissement} reset={resetArrondissement} geoData={appGeolocation}/>
+      {(appGeolocation.latitude || appArrondissement) && (
+        <SearchResults
+          data={appArrondissement}
+          reset={resetArrondissement}
+          geoData={appGeolocation}
+        />
       )}
     </div>
   );

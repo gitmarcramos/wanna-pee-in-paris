@@ -9,6 +9,25 @@ export default function SearchResults(props) {
   // Get the searched arrondissement
   const [searchedArrondissement, setSearchedArrondissement] = useState([]);
 
+  //Get the geolocation
+  const [userGeoLocation, setUserGeoLocation] = useState({
+    longitude: "",
+    latitude: "",
+  });
+
+  //! Here trying to manage the geolocation, but not working with only the button because it needs to have a REAL arrondissement to avoid empty array in results
+  const [filteredGeoloc, setFilteredGeoloc] = useState("");
+  // setFilteredGeoloc(
+  //   "&geofilter.distance=48.83871566436789%2C+2.2972791029868063%2C500"
+  // );
+
+  // useEffect(() => {
+  //   setUserGeoLocation({
+  //     longitude: props.geoData.longitude,
+  //     latitude: props.geoData.latitude,
+  //   });
+  // }, []);
+
   //Filter the search = PMR
   const [pmr, setPMR] = useState("");
   const toggleAccesPMR = (e) => {
@@ -20,6 +39,8 @@ export default function SearchResults(props) {
   const toggleAccesBaby = (e) => {
     e.currentTarget.checked ? setBaby("&refine.relais_bebe=Oui") : setBaby("");
   };
+
+  console.log(searchedArrondissement);
 
   useEffect(async () => {
     try {
@@ -40,62 +61,71 @@ export default function SearchResults(props) {
 
   return (
     <>
-    <Loader/>
-      {searchedArrondissement === undefined ? (
-        <Loader/>
-      ) : (
-        <div className="search-results container">
-          {/* results header*/}
-          <div className="search-results__data">
-            <div className="search-results__data--main">
-              <h1 className="title">
-                Toilettes publiques dans le {props.data}
-              </h1>
-              <h2>{searchedArrondissement.length} résultats</h2>
-            </div>
-            <div className="search-results__data--filter">
-              <h3 className="sub">Filtrer</h3>
-              <div className="filter-input">
-                <div className="filter-input--item">
-                  <label htmlFor="acces-pmr" className="body-min">
-                    Accès PMR
-                  </label>
-                  <input
-                    type="checkbox"
-                    id="acces-pmr"
-                    onChange={toggleAccesPMR}
-                  />
-                </div>
-                <div className="filter-input--item">
-                  <label htmlFor="relais-bebe" className="body-min">
-                    Relais bébé
-                  </label>
-                  <input
-                    type="checkbox"
-                    id="relais-bebe"
-                    onChange={toggleAccesBaby}
-                  />
-                </div>
+      <Loader />
+      <div className="search-results container">
+        <div className="search-results__data">
+          <img
+            src={Close}
+            alt="Close button"
+            className="close-svg"
+            onClick={props.reset}
+          />
+          <div className="search-results__data--main">
+            <h1 className="title">Toilettes publiques dans le {props.data}</h1>
+            <h2>{searchedArrondissement.length} résultats</h2>
+          </div>
+          <div className="search-results__data--filter">
+            <h3 className="sub">Filtrer</h3>
+            <div className="filter-input">
+              <div className="filter-input--item">
+                <label htmlFor="acces-pmr" className="body-min">
+                  Accès PMR
+                </label>
+                <input
+                  type="checkbox"
+                  id="acces-pmr"
+                  onChange={toggleAccesPMR}
+                />
+              </div>
+              <div className="filter-input--item">
+                <label htmlFor="relais-bebe" className="body-min">
+                  Relais bébé
+                </label>
+                <input
+                  type="checkbox"
+                  id="relais-bebe"
+                  onChange={toggleAccesBaby}
+                />
               </div>
             </div>
-            <button className="button-link" onClick={props.reset}>
-              Nouvelle recherche
-            </button>
-            <img
-              src={Close}
-              alt="Close button"
-              className="close-svg"
-              onClick={props.reset}
-            />
           </div>
-          {/* results Content */}
+          <button className="button-link" onClick={props.reset}>
+            Nouvelle recherche
+          </button>
+        </div>
+
+        {searchedArrondissement.length === 0 ? (
+          <>
+            <div className="toilet">
+              <span className="body">
+                Pas de toilettes disponibles. Veuillez modifiez les filtres.
+              </span>
+            </div>
+          </>
+        ) : (
           <div className="toilet">
             {searchedArrondissement.map((toilet) => {
               return <ItemResult key={uuidv4()} data={toilet} />;
             })}
           </div>
-        </div>
-      )}
+        )}
+        {/* results Content */}
+        {/* <div className="toilet">
+          {searchedArrondissement.map((toilet) => {
+            return <ItemResult key={uuidv4()} data={toilet} />;
+          })}
+        </div> */}
+      </div>
     </>
   );
 }

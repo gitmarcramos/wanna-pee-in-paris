@@ -65,7 +65,7 @@ export default function Search(props) {
   //Sends the arrondissement to the App
   useEffect(() => {
     props.getArr(arrondissement);
-    props.getGeolocate(geoLocate)
+    props.getGeolocate(geoLocate);
   }, [arrondissement, geoLocate]);
 
   return (
@@ -93,10 +93,11 @@ export default function Search(props) {
           <ErrorMsg msg="Veuillez entrer un arrondissement de Paris entre 75001 et 75020" />
         )}
 
-        <span className="body-min">ou</span>
+        {/* TO put back when reverse geocoding */}
+        {/* <span className="body-min">ou</span>
         <button className="button button--main" onClick={handleGeoLocate}>
           Géolocalisez-moi !
-        </button>
+        </button> */}
       </div>
     </div>
   );
