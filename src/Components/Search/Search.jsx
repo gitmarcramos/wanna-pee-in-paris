@@ -74,7 +74,7 @@ export default function Search(props) {
       <div className="search-options">
         <div className="search-bar">
           <input
-            type="text"
+            type="number"
             className="search-input"
             onInput={handleInput}
             value={input}
