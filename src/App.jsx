@@ -8,6 +8,12 @@ import Logo from "./Components/Logo/logo.svg";
 import Illustration from "./Components/Illustration/Illustration.svg";
 
 function App() {
+  //set the max-width with window.size observer only for mobile devices
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    console.log(width);
+  }, [width]);
+
   const [appArrondissement, setAppArrondissement] = useState(null);
 
   //Get arrondissement from the Search Component
@@ -25,7 +31,6 @@ function App() {
     latitude: null,
     longitude: null,
   });
-
 
   // Get geolocation from te Search Component
   const getGeolocate = (geoData) => {
