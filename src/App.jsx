@@ -8,12 +8,6 @@ import Logo from "./Components/Logo/logo.svg";
 import Illustration from "./Components/Illustration/Illustration.svg";
 
 function App() {
-  //set the max-width with window.size observer only for mobile devices
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    console.log(width);
-  }, [width]);
-
   const [appArrondissement, setAppArrondissement] = useState(null);
 
   //Get arrondissement from the Search Component
@@ -37,30 +31,40 @@ function App() {
     setAppGeolocation(geoData);
   };
 
+  const [width, setWidth] = useState(window.innerWidth);
+
   return (
-    <div className="App">
-      <img
-        src={Logo}
-        className="logo"
-        alt="Wanna Pee in Paris Logo"
-        onClick={resetArrondissement}
-      />
-      <img
-        src={Illustration}
-        className="illustration"
-        alt="Home page illustration"
-      />
-      {appArrondissement === null && (
-        <Search getArr={getArr} getGeolocate={getGeolocate} />
+    <>
+      {width > 500 ? (
+        <div className="mobile-check">
+          <h1>Cette application est disponible uniquement sur mobile</h1>
+        </div>
+      ) : (
+        <div className="App">
+          <img
+            src={Logo}
+            className="logo"
+            alt="Wanna Pee in Paris Logo"
+            onClick={resetArrondissement}
+          />
+          <img
+            src={Illustration}
+            className="illustration"
+            alt="Home page illustration"
+          />
+          {appArrondissement === null && (
+            <Search getArr={getArr} getGeolocate={getGeolocate} />
+          )}
+          {(appGeolocation.latitude || appArrondissement) && (
+            <SearchResults
+              data={appArrondissement}
+              reset={resetArrondissement}
+              geoData={appGeolocation}
+            />
+          )}
+        </div>
       )}
-      {(appGeolocation.latitude || appArrondissement) && (
-        <SearchResults
-          data={appArrondissement}
-          reset={resetArrondissement}
-          geoData={appGeolocation}
-        />
-      )}
-    </div>
+    </>
   );
 }
 
