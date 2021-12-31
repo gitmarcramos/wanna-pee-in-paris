@@ -99,7 +99,7 @@ export default function SearchResults(props) {
               </div>
             </div>
           </div>
-          <button className="button-link" onClick={props.reset}>
+          <button className="button-link body" onClick={props.reset}>
             Nouvelle recherche
           </button>
         </div>
