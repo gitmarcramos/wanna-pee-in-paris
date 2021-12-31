@@ -108,7 +108,7 @@ export default function SearchResults(props) {
           <>
             <div className="toilet">
               <span className="body">
-                Pas de toilettes disponibles. Veuillez modifiez les filtres.
+              Il n'y a pas de toilettes disponible avec ces critère. Veuillez modifier votre recherche.
               </span>
             </div>
           </>

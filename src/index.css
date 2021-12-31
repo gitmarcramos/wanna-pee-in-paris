@@ -5,7 +5,7 @@
   --text: #444444;
   --grey: #6a6a6a;
   --white: #fff;
-  --bg: #FFFCF8
+  --bg: #FFFCF8;
 }
 
 *,
@@ -19,7 +19,8 @@
   font-weight: 300;
 }
 
-body{
+
+body {
   background-color: var(--main);
 }
 
@@ -41,7 +42,7 @@ body{
 @font-face {
   font-family: "Geomanist";
   src: url("./assets/Geomanist-Regular.ttf") format("ttf"),
-  url("./assets/geomanist-regular-webfont.woff2") format("woff2");
+    url("./assets/geomanist-regular-webfont.woff2") format("woff2");
   font-weight: 300;
 }
 
@@ -53,41 +54,41 @@ body{
 }
 
 /* PERS. CLASSES */
-.title{
+.title {
   font-family: "Geomanist";
   font-weight: 500;
-  font-size: 1.6rem;
+  font-size: clamp(1.6rem, 5vw, 2.1rem);
   line-height: 160%;
 }
 
-.body{
+.body {
   font-family: "Geomanist";
   font-weight: 300;
-  font-size: 1.4rem;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
   line-height: 160%;
 }
 
-.sub{
+.sub {
   font-family: "Geomanist";
   font-weight: 500;
-  font-size: 1.2rem;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
   line-height: 100%;
 }
 
-.body-min{
+.body-min {
   font-family: "Geomanist";
   font-weight: 300;
-  font-size: 1.2rem;
+  font-size: clamp(1.2rem, 5vw, 1.2rem);
   line-height: 120%;
 }
 
 /* CONTAINERS */
-.container{
+.container {
   padding: 2.4rem 1.6rem;
 }
 
 /* BUTTONS */
-.button{
+.button {
   font-family: "Geomanist";
   font-weight: 500;
   border: none;
@@ -100,10 +101,10 @@ body{
   border-radius: 0 .8rem .8rem 0;
 }
 
-.button--main{
+.button--main {
   background-color: var(--main);
   padding: .8rem 1.6rem;
-  border-radius: .8rem ;
+  border-radius: .8rem;
 }
 
 .button-link {
@@ -117,14 +118,14 @@ body{
 
 
 /* LOGO */
-.logo{
+.logo {
   position: absolute;
   top: 3.2rem;
   left: 50%;
   transform: translateX(-50%)
 }
 
-.illustration{
+.illustration {
   position: absolute;
   top: 12rem;
   left: 50%;
