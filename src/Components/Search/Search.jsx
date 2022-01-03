@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./Search.css";
 
+//import components
 import ErrorMsg from "../ErrorMsg/ErrorMsg";
 
 export default function Search(props) {
@@ -68,13 +69,31 @@ export default function Search(props) {
     props.getGeolocate(geoLocate);
   }, [arrondissement, geoLocate]);
 
+  //handle input errors
+  const [errors, setErrors] = useState(false);
+  const checkErrors = () => {
+    if (
+      isNaN(input) ||
+      input.length !== 5 ||
+      !arrArrondissements.includes(input)
+    ) {
+      setErrors(true);
+    }
+  };
+
+  const checkAllErrors = () => {
+    handleArrondissement();
+    checkErrors();
+    setInput("");
+  };
+
   return (
     <div className="main-search container">
       <h1 className="body">Dans quel arrondissement cherchez-vous ?</h1>
       <div className="search-options">
         <div className="search-bar">
           <input
-            type="number"
+            type="text"
             className="search-input"
             onInput={handleInput}
             value={input}
@@ -82,14 +101,13 @@ export default function Search(props) {
 
           <button
             className="button button--search"
-            onClick={handleArrondissement}
+            // onClick={handleArrondissement}
+            onClick={checkAllErrors}
           >
             Go !
           </button>
         </div>
-        {(input.length > 5 ||
-          isNaN(input) ||
-          (input.length === 5 && !arrArrondissements.includes(input))) && (
+        {errors && (
           <ErrorMsg msg="Veuillez entrer un arrondissement de Paris entre 75001 et 75020" />
         )}
 
