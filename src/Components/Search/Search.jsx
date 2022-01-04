@@ -89,7 +89,7 @@ export default function Search(props) {
 
   return (
     <div className="main-search container">
-      <h1 className="body">Dans quel arrondissement cherchez-vous ?</h1>
+      <h1 className="body">Dans quel arrondissement de Paris cherchez-vous des toilettes publiques?</h1>
       <div className="search-options">
         <div className="search-bar">
           <input
