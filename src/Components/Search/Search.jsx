@@ -101,7 +101,6 @@ export default function Search(props) {
 
           <button
             className="button button--search"
-            // onClick={handleArrondissement}
             onClick={checkAllErrors}
           >
             Go !
