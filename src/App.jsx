@@ -37,7 +37,9 @@ function App() {
     <>
       {width > 500 ? (
         <div className="mobile-check">
-          <h1 className="body">Ce site Internet est accessible uniquement sur mobile</h1>
+          <h1 className="body">
+            Ce site Internet est accessible uniquement sur mobile
+          </h1>
         </div>
       ) : (
         <div className="App">

@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import "./Loader.css";
 
+import NoToilets from "../NoToilets/NoToilets"
+
 export default function Loader() {
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoader(false);
-    }, 800);
+    }, 10);
     return () => {
       clearTimeout(timer);
     };
@@ -55,7 +57,7 @@ export default function Loader() {
           </svg>
         </div>
       ) : (
-        <></>
+        <NoToilets/>
       )}
     </>
   );
