@@ -93,7 +93,7 @@ export default function Search(props) {
       <div className="search-options">
         <div className="search-bar">
           <input
-            type="number"
+            type="text" pattern="[0-9]*"
             className="search-input"
             onInput={handleInput}
             value={input}
