@@ -79,7 +79,7 @@ body {
   font-family: "Geomanist";
   font-weight: 300;
   font-size: clamp(1.2rem, 4vw, 1.6rem);
-  line-height: 120%;
+  line-height: 160%;
 }
 
 input[type="text"]
@@ -127,7 +127,8 @@ input[type="text"]
   position: absolute;
   top: 3.2rem;
   left: 50%;
-  transform: translateX(-50%)
+  transform: translateX(-50%);
+  z-index: 99999999;
 }
 
 .illustration {
