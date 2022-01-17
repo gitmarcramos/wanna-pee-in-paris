@@ -3,6 +3,7 @@ import "./App.css";
 // Components
 import Search from "./Components/Search/Search";
 import SearchResults from "./Components/SearchResults/SearchResults";
+import IconMenu from "./Components/IconMenu/IconMenu";
 // Images
 import Logo from "./Components/Logo/logo.svg";
 import Illustration from "./Components/Illustration/Illustration.svg";
@@ -33,6 +34,8 @@ function App() {
 
   const [width, setWidth] = useState(window.innerWidth);
 
+
+
   return (
     <>
       {width > 500 ? (
@@ -54,6 +57,7 @@ function App() {
             className="illustration"
             alt="Home page illustration"
           />
+          <IconMenu />
           {appArrondissement === null && (
             <Search getArr={getArr} getGeolocate={getGeolocate} />
           )}

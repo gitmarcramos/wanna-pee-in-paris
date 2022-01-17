@@ -1,0 +1,24 @@
+.page-menu {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-color: var(--main);
+    z-index: 99;
+    animation: menu 300ms ease-in;
+    padding: 0 .8rem;
+    display: flex;
+    gap: 3.2rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@keyframes menu {
+    0% {
+        right: -100%;
+    }
+
+    100% {
+        right: 0;
+    }
+}
