@@ -1,31 +1,64 @@
-.item-result{
+.item-result {
     border-radius: .8rem;
-    background-color: var(--white);box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    background-color: var(--white);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
     padding: .8rem;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
 
-    .item-result-infos{
+    .item-openState{
+        display: flex;
+        flex-direction: row;
+        gap: .4rem;
+        align-items: center;
+
+        .sub{
+            font-weight: 300;
+        }
+
+        .state-indicator{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+        }
+
+        .open{
+            background-color: var(--succes);
+        }
+
+        .closed{
+            background-color: var(--closed);
+        }
+
+        .maybe{
+            background-color: var(--contrast);
+        }
+    }
+
+   
+
+    .item-result-infos {
         display: flex;
         gap: .8rem;
         justify-content: space-between;
 
-        .item-result-infos--item{
+        .item-result-infos--item {
             display: flex;
             gap: .4rem;
             align-items: center;
             width: 33%;
-            
-            img{
+
+            img {
                 min-width: 20px
             }
         }
     }
 
-    .disabled{
+    .disabled {
         opacity: .5;
     }
-
-    
 }
+

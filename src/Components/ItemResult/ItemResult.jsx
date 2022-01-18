@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ItemResult.css";
 
 //images
@@ -8,9 +8,68 @@ import baby from "./baby.svg";
 
 export default function ItemResult(props) {
   const toilet = props.data;
+
+  const horaires = props.data.fields.horaire || "non spécifié";
+
+  // Get the opening hours in numbers and actual hour
+  const [openingHours, setOpeningHours] = useState({
+    opening: Number(horaires.split(" ")[0]),
+    closing: Number(horaires.split(" ")[3]),
+    userHour: new Date().getHours(),
+  });
+
+  // Set the opened hours, to compare with actual hour
+  const createInterval = () => {
+    let interval = [];
+
+    if (openingHours.closing - openingHours.opening > 0) {
+      for (let i = openingHours.opening; i <= openingHours.closing; i++) {
+        interval.push(i);
+      }
+    }
+
+    if (openingHours.closing - openingHours.opening === 0) {
+      for (let i = 0; i <= 24; i++) {
+        interval.push(i);
+      }
+    }
+
+    if (openingHours.closing - openingHours.opening < 0) {
+      for (let i = openingHours.opening; i <= 24; i++) {
+        interval.push(i);
+      }
+      for (let i = 0; i <= openingHours.closing; i++) {
+        interval.push(i);
+      }
+    }
+
+    if(isNaN(openingHours.opening)) return undefined
+    if(interval.includes(openingHours.userHour)) return true;
+    if(!interval.includes(openingHours.userHour)) return false;
+  };
+
+  // Variable to check if the toilets are opened or not
+  let isOpen = createInterval();
+
   return (
     <div className="item-result">
-      <h4 className="title">{toilet.fields.adresse}</h4>
+      <div className="item-head">
+        <h4 className="title">{toilet.fields.adresse}</h4>
+        <div className="item-openState">
+          <div
+            className={
+              isOpen === true ? "state-indicator open" : 
+              isOpen === false ? "state-indicator closed" : 
+              "state-indicator maybe"
+            }
+          ></div>
+          <p className="sub">{
+            isOpen === true ? "Ouvertes en ce moment" : 
+            isOpen === false ? "Fermées en ce moment" : 
+              "Horaires d'ouvertures indisponibles."
+          }</p>
+        </div>
+      </div>
       <div className="item-result-infos">
         {toilet.fields.horaire === "Voir fiche équipement" ? (
           <div className="item-result-infos--item">
@@ -20,7 +79,7 @@ export default function ItemResult(props) {
               className="body-min"
               target="_blank"
             >
-              Consulter
+              Voir les horaires
             </a>
           </div>
         ) : (
