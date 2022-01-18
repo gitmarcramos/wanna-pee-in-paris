@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ItemResult.css";
 
 //images
@@ -8,8 +8,51 @@ import baby from "./baby.svg";
 
 export default function ItemResult(props) {
   const toilet = props.data;
+
+  // Get the opening hours in numbers and actual hour
+  const [openingHours, setOpeningHours] = useState({
+    opening: Number(toilet.fields.horaire.split(" ")[0]),
+    closing: Number(toilet.fields.horaire.split(" ")[3]),
+    userHour: new Date().getHours(),
+  });
+
+  
+  // Set the opened hours, to compare with actual hour
+  const createInterval = () => {
+    let interval = [];
+
+    if (openingHours.closing - openingHours.opening > 0) {
+      for (let i = openingHours.opening; i <= openingHours.closing; i++) {
+        interval.push(i);
+      }
+    }
+
+    if (openingHours.closing - openingHours.opening === 0) {
+      for (let i = 0; i <= 24; i++) {
+        interval.push(i);
+      }
+    }
+
+    if (openingHours.closing - openingHours.opening < 0) {
+      for (let i = openingHours.opening; i <= 24; i++) {
+        interval.push(i);
+      }
+      for (let i = 0; i <= openingHours.closing; i++) {
+        interval.push(i);
+      }
+    }
+
+    return interval.includes(openingHours.userHour) ? true : false;
+  };
+
+  // Variable to check if the toilets are opened or not
+  let isOpen = createInterval();
+  console.log(isOpen);
+
+
+
   return (
-    <div className="item-result">
+    <div className={isOpen ? 'item-result item-open' : 'item-result'}>
       <h4 className="title">{toilet.fields.adresse}</h4>
       <div className="item-result-infos">
         {toilet.fields.horaire === "Voir fiche équipement" ? (
