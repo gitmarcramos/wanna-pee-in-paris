@@ -8,7 +8,7 @@
 ## **Road map**
 - **V1.1:** add a menu to display *“À propos de Wanna Pee in Paris”*, and create the page;
 
-- **V1.1.2:** better handling of the loader component (⇒ loads only while it retrieves data from the API);
+- **V1.1.2:** Add the opening status of the toilets, based on the current hour.
 
 - **V1.2:** Handle analytics cookies, create the page *“Politique de confidentialité”*;
 
