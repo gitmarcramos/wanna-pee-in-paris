@@ -6,9 +6,13 @@
 
 
 ## **Road map**
+
+***DONE***: 
 - **V1.1:** add a menu to display *“À propos de Wanna Pee in Paris”*, and create the page;
 
 - **V1.1.2:** Add the opening status of the toilets, based on the current hour.
+
+***TO DO***
 
 - **V1.2:** Handle analytics cookies, create the page *“Politique de confidentialité”*;
 
