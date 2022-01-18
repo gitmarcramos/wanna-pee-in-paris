@@ -7,6 +7,39 @@
     flex-direction: column;
     gap: 1.6rem;
 
+    .item-openState{
+        display: flex;
+        flex-direction: row;
+        gap: .4rem;
+        align-items: center;
+
+        .sub{
+            font-weight: 300;
+        }
+
+        .state-indicator{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+        }
+
+        .open{
+            background-color: var(--succes);
+        }
+
+        .closed{
+            background-color: var(--closed);
+        }
+
+        .maybe{
+            background-color: var(--contrast);
+        }
+    }
+
+   
+
     .item-result-infos {
         display: flex;
         gap: .8rem;
@@ -29,6 +62,3 @@
     }
 }
 
-.item-open {
-    background-color: green;
-}

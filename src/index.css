@@ -6,6 +6,8 @@
   --grey: #6a6a6a;
   --white: #fff;
   --bg: #FFFCF8;
+  --succes: #5AE24E;
+  --closed: #FE2828
 }
 
 *,
@@ -82,9 +84,8 @@ body {
   line-height: 160%;
 }
 
-input[type="text"]
-{
-    font-size:clamp(1.2rem, 5vw, 1.6rem);
+input[type="text"] {
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
 }
 
 /* CONTAINERS */
