@@ -1,0 +1,10 @@
+.geoDataResults {
+  width: 100%;
+  background-color: var(--bg);
+  position: fixed;
+  z-index: 10;
+  inset: 120px 0 0 0;
+  border-radius: 1.6rem 1.6rem 0 0;
+  overflow-y: scroll;
+}
+/*# sourceMappingURL=GeoDataResults.css.map */

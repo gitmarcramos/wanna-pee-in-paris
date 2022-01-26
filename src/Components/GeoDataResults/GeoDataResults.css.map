@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAA;EACX,KAAK,EAAE,IAAI;EACX,gBAAgB,EAAE,SAAS;EAC3B,QAAQ,EAAE,KAAK;EACf,OAAO,EAAE,EAAE;EACX,KAAK,EAAE,WAAW;EAClB,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,MAAM;CACrB",
+    "sources": [
+        "GeoDataResults.scss"
+    ],
+    "names": [],
+    "file": "GeoDataResults.css"
+}

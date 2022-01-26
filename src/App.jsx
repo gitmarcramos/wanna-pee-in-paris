@@ -4,6 +4,7 @@ import "./App.css";
 import Search from "./Components/Search/Search";
 import SearchResults from "./Components/SearchResults/SearchResults";
 import IconMenu from "./Components/IconMenu/IconMenu";
+import GeoDataResults from "./Components/GeoDataResults/GeoDataResults";
 // Images
 import Logo from "./Components/Logo/logo.svg";
 import Illustration from "./Components/Illustration/Illustration.svg";
@@ -32,9 +33,8 @@ function App() {
     setAppGeolocation(geoData);
   };
 
+  // For checking screen width
   const [width, setWidth] = useState(window.innerWidth);
-
-
 
   return (
     <>
@@ -58,15 +58,21 @@ function App() {
             alt="Home page illustration"
           />
           <IconMenu />
-          {appArrondissement === null && (
+          {/* The search appears only if Arrondissement or Geolocation are null */}
+          {(appArrondissement === null && appGeolocation.latitude === null) && (
             <Search getArr={getArr} getGeolocate={getGeolocate} />
           )}
-          {(appGeolocation.latitude || appArrondissement) && (
+          {/* Search results for arrondissements */}
+          {appArrondissement && (
             <SearchResults
               data={appArrondissement}
               reset={resetArrondissement}
               geoData={appGeolocation}
             />
+          )}
+          {/* Searc Results for geolocation */}
+          {appGeolocation.latitude && (
+            <GeoDataResults coordinates={appGeolocation} />
           )}
         </div>
       )}
