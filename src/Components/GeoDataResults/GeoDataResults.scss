@@ -1,4 +1,4 @@
-.geoDataResults{
+.geoDataResults {
     width: 100%;
     background-color: var(--bg);
     position: fixed;
@@ -6,4 +6,19 @@
     inset: 120px 0 0 0;
     border-radius: 1.6rem 1.6rem 0 0;
     overflow-y: scroll;
+
+
+    .mapboxgl-ctrl-logo,
+    .mapboxgl-ctrl-bottom-right {
+        display: none;
+    }
+
+    .marker {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--main);
+        opacity: .8;
+        cursor: pointer;
+    }
 }
