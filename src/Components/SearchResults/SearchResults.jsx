@@ -15,18 +15,6 @@ export default function SearchResults(props) {
     latitude: "",
   });
 
-  //! Here trying to manage the geolocation, but not working with only the button because it needs to have a REAL arrondissement to avoid empty array in results
-  const [filteredGeoloc, setFilteredGeoloc] = useState("");
-  // setFilteredGeoloc(
-  //   "&geofilter.distance=48.83871566436789%2C+2.2972791029868063%2C500"
-  // );
-
-  // useEffect(() => {
-  //   setUserGeoLocation({
-  //     longitude: props.geoData.longitude,
-  //     latitude: props.geoData.latitude,
-  //   });
-  // }, []);
 
   //Filter the search = PMR
   const [pmr, setPMR] = useState("");

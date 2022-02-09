@@ -53,14 +53,23 @@ export default function Search(props) {
     longitude: null,
   });
 
+  //handle geolocation denied
+  const [errorGeoloc, setErrorGeoloc] = useState(false)
+
   // Handler to get user geolocation when click on button
   const handleGeoLocate = () => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setGeolocate({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-    });
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        setGeolocate({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      function (error) {
+        if (error.code == error.PERMISSION_DENIED)
+          setErrorGeoloc(true)
+      }
+    );
   };
 
   //Sends the arrondissement to the App
@@ -89,7 +98,9 @@ export default function Search(props) {
 
   return (
     <div className="main-search container">
-      <h1 className="body">Dans quel arrondissement de Paris cherchez-vous des toilettes publiques?</h1>
+      <h1 className="body">
+        Dans quel arrondissement de Paris cherchez-vous des toilettes publiques?
+      </h1>
       <div className="search-options">
         <div className="search-bar">
           <input
@@ -99,10 +110,7 @@ export default function Search(props) {
             value={input}
           />
 
-          <button
-            className="button button--search"
-            onClick={checkAllErrors}
-          >
+          <button className="button button--search" onClick={checkAllErrors}>
             Go !
           </button>
         </div>
@@ -115,6 +123,7 @@ export default function Search(props) {
         <button className="button button--main" onClick={handleGeoLocate}>
           Géolocalisez-moi !
         </button>
+        {errorGeoloc? <ErrorMsg msg="La geolocalisation n'est pas activée sur votre navigateur" /> : null}
       </div>
     </div>
   );
