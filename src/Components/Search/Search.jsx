@@ -54,7 +54,7 @@ export default function Search(props) {
   });
 
   //handle geolocation denied
-  // const [errorGeoloc, setErrorGeoloc] = useState(false);
+  const [errorGeoloc, setErrorGeoloc] = useState(false);
 
   // Handler to get user geolocation when click on button
   const handleGeoLocate = async () => {
