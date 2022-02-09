@@ -119,11 +119,11 @@ export default function Search(props) {
         )}
 
         {/* TO put back when reverse geocoding */}
-        <span className="body-min">ou</span>
+        {/* <span className="body-min">ou</span>
         <button className="button button--main" onClick={handleGeoLocate}>
           Géolocalisez-moi !
         </button>
-        {errorGeoloc? <ErrorMsg msg="La geolocalisation n'est pas activée sur votre navigateur" /> : null}
+        {errorGeoloc? <ErrorMsg msg="La geolocalisation n'est pas activée sur votre navigateur" /> : null} */}
       </div>
     </div>
   );
