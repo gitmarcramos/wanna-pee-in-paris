@@ -6,6 +6,7 @@
   inset: 120px 0 0 0;
   border-radius: 1.6rem 1.6rem 0 0;
   overflow-y: scroll;
+  position: relative;
 }
 
 .geoDataResults .mapboxgl-ctrl-logo,
@@ -18,7 +19,42 @@
   height: 25px;
   border-radius: 50%;
   background: var(--main);
-  opacity: .8;
+  opacity: .85;
   cursor: pointer;
+  -webkit-transition: all 100ms ease-in;
+  transition: all 100ms ease-in;
+  outline: none;
+  border: none;
+}
+
+.geoDataResults .marker-clicked {
+  width: 35px;
+  height: 35px;
+  opacity: 1;
+  border: 8px solid var(--contrast);
+}
+
+.geoDataResults .layer-card-infos {
+  position: absolute;
+  top: 0;
+  padding: 8px;
+  background-color: fff;
+  opacity: .9;
+  width: 100%;
+  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.geoDataResults .layer-card-infos .range-label {
+  width: 75%;
+  display: inline-block;
+  margin: 4px 0;
+}
+
+.geoDataResults .selected-toilet-card {
+  width: 100%;
+  position: absolute;
+  bottom: 120px;
+  padding: 8px;
 }
 /*# sourceMappingURL=GeoDataResults.css.map */

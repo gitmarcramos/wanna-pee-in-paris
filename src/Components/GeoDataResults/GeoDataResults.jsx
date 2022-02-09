@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./GeoDataResults.css";
 //components
 import Loader from "../Loader/Loader";
+import ItemResult from "../ItemResult/ItemResult";
 
 // React Map GL
 import Map, { GeolocateControl, Source, Layer, Marker } from "react-map-gl";
@@ -17,8 +18,11 @@ export default function GeoDataResults(props) {
   const [viewState, setViewState] = useState({
     longitude: userGeoLocation.longitude,
     latitude: userGeoLocation.latitude,
-    zoom: 14.5,
+    zoom: 13.5,
   });
+
+  //REF for user icon
+  const geolocateControlRef = useRef(null);
 
   //Choose the range for showing toilets
   const [range, setRange] = useState("500");
@@ -33,7 +37,7 @@ export default function GeoDataResults(props) {
     try {
       const APItoilets = await (
         await fetch(
-          "https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&q=&rows=100&facet=type&facet=statut&facet=arrondissement&facet=horaire&facet=acces_pmr&facet=relais_bebe&geofilter.distance=" +
+          "https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&q=&rows=1000&facet=type&facet=statut&facet=arrondissement&facet=horaire&facet=acces_pmr&facet=relais_bebe&geofilter.distance=" +
             userGeoLocation.latitude +
             "%2C" +
             userGeoLocation.longitude +
@@ -42,11 +46,14 @@ export default function GeoDataResults(props) {
         )
       ).json();
       setToilets(APItoilets.records);
+      //here set the user icon of current position
+      geolocateControlRef.current.trigger();
     } catch (e) {
       console.error(e);
     }
   }, [range]);
 
+  //Fall back if the first TRIGGER method for showing user icon doesn't works
   const geojson = {
     type: "FeatureCollection",
     features: [
@@ -65,15 +72,13 @@ export default function GeoDataResults(props) {
     id: "point",
     type: "circle",
     paint: {
-      "circle-radius": 10,
+      "circle-radius": 5,
       "circle-color": "#007cbf",
     },
   };
 
   // Set the toilet selected by user, clicked on the map
   const [selectedToilet, setSelectedToilet] = useState(null);
-
-  console.log(selectedToilet);
 
   return (
     <div className="geoDataResults">
@@ -83,12 +88,12 @@ export default function GeoDataResults(props) {
         onMove={(evt) => setViewState(evt.viewState)}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxAccessToken={import.meta.env.VITE_ACCESS_TOKEN}
-        style={{ height: "60%" }}
+        style={{ height: "100%" }}
       >
         <Source id="my-data" type="geojson" data={geojson}>
           <Layer {...layerStyle} />
         </Source>
-        <GeolocateControl />
+        <GeolocateControl ref={geolocateControlRef} />
 
         {toilets.map((toilet) => {
           return (
@@ -98,9 +103,10 @@ export default function GeoDataResults(props) {
               longitude={toilet.geometry.coordinates[0]}
             >
               <button
-                className="marker"
+                className={toilet === selectedToilet ? "marker marker-clicked" : "marker"}
                 onClick={(e) => {
                   setSelectedToilet(toilet);
+                  e.currentTarget.classList.toggle("marker-clicked");
                 }}
               ></button>
             </Marker>
@@ -108,24 +114,30 @@ export default function GeoDataResults(props) {
         })}
       </Map>
 
-      <label htmlFor="range-selector">
-        Toilettes dans un rayon de {range} mètres
-      </label>
-      <br />
-      <input
-        id="range-selector"
-        type="range"
-        min="100"
-        max="5000"
-        value={range}
-        step="100"
-        onChange={handleRange}
-      />
-      {selectedToilet && (
-        <>
-          <h1>{selectedToilet.fields.adresse}</h1>
-        </>
-      )}
+      <div className="layer-card-infos">
+        <label htmlFor="range-selector" className="body-min range-label">
+          <span className="sub">{toilets.length}</span> Toilettes publiques{" "}
+          <br /> dans un rayon de {range} mètres
+        </label>
+        <br />
+        <input
+          id="range-selector"
+          type="range"
+          min="100"
+          max="5000"
+          value={range}
+          step="100"
+          onChange={handleRange}
+        />
+      </div>
+
+      <div className={selectedToilet ? "selected-toilet-card" : null}>
+        {selectedToilet && (
+          <>
+            <ItemResult data={selectedToilet} />
+          </>
+        )}
+      </div>
     </div>
   );
 }
