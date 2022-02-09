@@ -88,7 +88,7 @@ export default function GeoDataResults(props) {
         {...viewState}
         onMove={(evt) => setViewState(evt.viewState)}
         mapStyle="mapbox://styles/mapbox/streets-v11"
-        mapboxAccessToken={import.meta.env.VITE_ACCESS_TOKEN}
+        mapboxAccessToken={"pk.eyJ1IjoibWFyYy1yYW1vcyIsImEiOiJja3o5d29tOWEwMHNtMnJwZ2huaWl0aTU4In0.9dpBkYt3Vcl2ylw79DTGqw"}
         style={{ height: "100%" }}
       >
         <Source id="my-data" type="geojson" data={geojson}>
