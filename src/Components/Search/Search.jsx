@@ -111,10 +111,10 @@ export default function Search(props) {
         )}
 
         {/* TO put back when reverse geocoding */}
-        <span className="body-min">ou</span>
+        {/* <span className="body-min">ou</span>
         <button className="button button--main" onClick={handleGeoLocate}>
           Géolocalisez-moi !
-        </button>
+        </button> */}
       </div>
     </div>
   );
