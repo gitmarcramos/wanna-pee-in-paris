@@ -54,10 +54,10 @@ export default function Search(props) {
   });
 
   //handle geolocation denied
-  const [errorGeoloc, setErrorGeoloc] = useState(false)
+  // const [errorGeoloc, setErrorGeoloc] = useState(false);
 
   // Handler to get user geolocation when click on button
-  const handleGeoLocate = () => {
+  const handleGeoLocate = async () => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
         setGeolocate({
@@ -66,11 +66,11 @@ export default function Search(props) {
         });
       },
       function (error) {
-        if (error.code == error.PERMISSION_DENIED)
-          setErrorGeoloc(true)
+        if (error.code == error.PERMISSION_DENIED) setErrorGeoloc(true);
       }
     );
   };
+
 
   //Sends the arrondissement to the App
   useEffect(() => {
@@ -119,11 +119,13 @@ export default function Search(props) {
         )}
 
         {/* TO put back when reverse geocoding */}
-        {/* <span className="body-min">ou</span>
+        <span className="body-min">ou</span>
         <button className="button button--main" onClick={handleGeoLocate}>
           Géolocalisez-moi !
         </button>
-        {errorGeoloc? <ErrorMsg msg="La geolocalisation n'est pas activée sur votre navigateur" /> : null} */}
+        {errorGeoloc ? (
+          <ErrorMsg msg="La geolocalisation n'est pas activée sur votre navigateur" />
+        ) : null}
       </div>
     </div>
   );

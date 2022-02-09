@@ -15,6 +15,7 @@ export default function GeoDataResults(props) {
     latitude: props.coordinates.latitude,
   });
 
+
   const [viewState, setViewState] = useState({
     longitude: userGeoLocation.longitude,
     latitude: userGeoLocation.latitude,
