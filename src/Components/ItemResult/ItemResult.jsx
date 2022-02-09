@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ItemResult.css";
 
 //images
@@ -10,13 +10,23 @@ export default function ItemResult(props) {
   const toilet = props.data;
 
   const horaires = props.data.fields.horaire || "non spécifié";
-
   // Get the opening hours in numbers and actual hour
   const [openingHours, setOpeningHours] = useState({
     opening: Number(horaires.split(" ")[0]),
     closing: Number(horaires.split(" ")[3]),
     userHour: new Date().getHours(),
   });
+
+  //set the opening hours of the selected toilets by Geolocation
+  useEffect(() => {
+    setOpeningHours({
+      opening: Number(horaires.split(" ")[0]),
+      closing: Number(horaires.split(" ")[3]),
+      userHour: new Date().getHours(),
+    });
+  }, [toilet]);
+
+  console.log(openingHours);
 
   // Set the opened hours, to compare with actual hour
   const createInterval = () => {
@@ -43,9 +53,9 @@ export default function ItemResult(props) {
       }
     }
 
-    if(isNaN(openingHours.opening)) return undefined
-    if(interval.includes(openingHours.userHour)) return true;
-    if(!interval.includes(openingHours.userHour)) return false;
+    if (isNaN(openingHours.opening)) return undefined;
+    if (interval.includes(openingHours.userHour)) return true;
+    if (!interval.includes(openingHours.userHour)) return false;
   };
 
   // Variable to check if the toilets are opened or not
@@ -54,20 +64,27 @@ export default function ItemResult(props) {
   return (
     <div className="item-result">
       <div className="item-head">
-        <h4 className="title">{toilet.fields.adresse}</h4>
+        <h2 className="body-min">Type : {toilet.fields.type}</h2>
+        <h4 className="title">
+          {toilet.fields.adresse} - {toilet.fields.arrondissement}
+        </h4>
         <div className="item-openState">
           <div
             className={
-              isOpen === true ? "state-indicator open" : 
-              isOpen === false ? "state-indicator closed" : 
-              "state-indicator maybe"
+              isOpen === true
+                ? "state-indicator open"
+                : isOpen === false
+                ? "state-indicator closed"
+                : "state-indicator maybe"
             }
           ></div>
-          <p className="sub">{
-            isOpen === true ? "Ouvertes en ce moment" : 
-            isOpen === false ? "Fermées en ce moment" : 
-              "Horaires d'ouvertures indisponibles."
-          }</p>
+          <p className="sub">
+            {isOpen === true
+              ? "Ouvertes en ce moment"
+              : isOpen === false
+              ? "Fermées en ce moment"
+              : "Horaires d'ouvertures indisponibles."}
+          </p>
         </div>
       </div>
       <div className="item-result-infos">
