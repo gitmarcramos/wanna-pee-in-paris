@@ -26,8 +26,6 @@ export default function ItemResult(props) {
     });
   }, [toilet]);
 
-  console.log(openingHours);
-
   // Set the opened hours, to compare with actual hour
   const createInterval = () => {
     let interval = [];
