@@ -126,7 +126,7 @@ input {
 
 /* LOGO */
 .logo {
-  position: absolute;
+  position: fixed;
   top: 3.2rem;
   left: 50%;
   transform: translateX(-50%);
