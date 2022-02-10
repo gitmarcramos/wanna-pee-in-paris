@@ -15,7 +15,6 @@ export default function GeoDataResults(props) {
     latitude: props.coordinates.latitude,
   });
 
-
   const [viewState, setViewState] = useState({
     longitude: userGeoLocation.longitude,
     latitude: userGeoLocation.latitude,
@@ -34,11 +33,27 @@ export default function GeoDataResults(props) {
 
   //Get all toilets from Toilets API
   const [toilets, setToilets] = useState([]);
+
+  //Filter for ACCES PMR
+  const [pmr, setPMR] = useState("");
+  const prmFunc = (e) => {
+    e.currentTarget.checked ? setPMR("&refine.acces_pmr=Oui") : setPMR("");
+  };
+
+  //Filter for RELAIS BEBE
+  const [baby, setBaby] = useState("");
+  const toggleAccesBaby = (e) => {
+    e.currentTarget.checked ? setBaby("&refine.relais_bebe=Oui") : setBaby("");
+  };
+
   useEffect(async () => {
     try {
       const APItoilets = await (
         await fetch(
-          "https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&q=&rows=1000&facet=type&facet=statut&facet=arrondissement&facet=horaire&facet=acces_pmr&facet=relais_bebe&geofilter.distance=" +
+          "https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&q=&rows=1000&facet=type&facet=statut&facet=arrondissement&facet=horaire&facet=acces_pmr&facet=relais_bebe" +
+            pmr +
+            baby +
+            "&geofilter.distance=" +
             userGeoLocation.latitude +
             "%2C" +
             userGeoLocation.longitude +
@@ -48,11 +63,11 @@ export default function GeoDataResults(props) {
       ).json();
       setToilets(APItoilets.records);
       //here set the user icon of current position
-      geolocateControlRef.current.trigger();
+      await geolocateControlRef.current.trigger();
     } catch (e) {
       console.error(e);
     }
-  }, [range]);
+  }, [range, baby, pmr]);
 
   //Fall back if the first TRIGGER method for showing user icon doesn't works
   const geojson = {
@@ -82,63 +97,94 @@ export default function GeoDataResults(props) {
   const [selectedToilet, setSelectedToilet] = useState(null);
 
   return (
-    <div className="geoDataResults">
+    <>
       <Loader />
-      <Map
-        {...viewState}
-        onMove={(evt) => setViewState(evt.viewState)}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
-        mapboxAccessToken={"pk.eyJ1IjoibWFyYy1yYW1vcyIsImEiOiJja3o5d29tOWEwMHNtMnJwZ2huaWl0aTU4In0.9dpBkYt3Vcl2ylw79DTGqw"}
-        style={{ height: "100%" }}
-      >
-        <Source id="my-data" type="geojson" data={geojson}>
-          <Layer {...layerStyle} />
-        </Source>
-        <GeolocateControl ref={geolocateControlRef} />
+      <div className="geoDataResults">
+        <Map
+          {...viewState}
+          onMove={(evt) => setViewState(evt.viewState)}
+          mapStyle="mapbox://styles/mapbox/streets-v11"
+          mapboxAccessToken={
+            "pk.eyJ1IjoibWFyYy1yYW1vcyIsImEiOiJja3o5d29tOWEwMHNtMnJwZ2huaWl0aTU4In0.9dpBkYt3Vcl2ylw79DTGqw"
+          }
+          style={{ height: "100%" }}
+        >
+          <Source id="my-data" type="geojson" data={geojson}>
+            <Layer {...layerStyle} />
+          </Source>
+          <GeolocateControl ref={geolocateControlRef} />
 
-        {toilets.map((toilet) => {
-          return (
-            <Marker
-              key={toilet.recordid}
-              latitude={toilet.geometry.coordinates[1]}
-              longitude={toilet.geometry.coordinates[0]}
-            >
-              <button
-                className={toilet === selectedToilet ? "marker marker-clicked" : "marker"}
-                onClick={(e) => {
-                  setSelectedToilet(toilet);
-                  e.currentTarget.classList.toggle("marker-clicked");
-                }}
-              ></button>
-            </Marker>
-          );
-        })}
-      </Map>
+          {toilets.map((toilet) => {
+            return (
+              <Marker
+                key={toilet.recordid}
+                latitude={toilet.geometry.coordinates[1]}
+                longitude={toilet.geometry.coordinates[0]}
+              >
+                <button
+                  className={
+                    toilet === selectedToilet
+                      ? "marker marker-clicked"
+                      : "marker"
+                  }
+                  onClick={(e) => {
+                    setSelectedToilet(toilet);
+                    e.currentTarget.classList.toggle("marker-clicked");
+                  }}
+                ></button>
+              </Marker>
+            );
+          })}
+        </Map>
 
-      <div className="layer-card-infos">
-        <label htmlFor="range-selector" className="body-min range-label">
-          <span className="sub">{toilets.length}</span> Toilettes publiques{" "}
-          <br /> dans un rayon de {range} mètres
-        </label>
-        <br />
-        <input
-          id="range-selector"
-          type="range"
-          min="100"
-          max="5000"
-          value={range}
-          step="100"
-          onChange={handleRange}
-        />
+        <div className="pill"></div>
+        <div className="layer-card-infos" draggable="true">
+          <label htmlFor="range-selector" className="body-min range-label">
+            <span className="sub">{toilets.length}</span> Toilettes publiques{" "}
+            <br /> dans un rayon de {range} mètres
+          </label>
+          <br />
+          <input
+            id="range-selector"
+            type="range"
+            min="100"
+            max="5000"
+            value={range}
+            step="100"
+            onChange={handleRange}
+          />
+          <div className="checkbox-container">
+            <h3 className="sub">Filtrer</h3>
+            <div className="checkbox-container-filter">
+              <div className="checkbox-container-filter--item">
+                <label htmlFor="acces-pmr" className="body-min">
+                  Accès PMR
+                </label>
+                <input type="checkbox" id="acces-pmr" onClick={prmFunc} />
+              </div>
+              <div className="checkbox-container-filter--item">
+                <label htmlFor="relais-bebe" className="body-min">
+                  Relais bébé
+                </label>
+                <input
+                  type="checkbox"
+                  id="relais-bebe"
+                  onClick={toggleAccesBaby}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={selectedToilet ? "selected-toilet-card" : null}>
+          {selectedToilet && (
+            <>
+              <button className="close-selected-toilets" onClick={()=>{setSelectedToilet(null)}}>Close</button>
+              <ItemResult data={selectedToilet} />
+            </>
+          )}
+        </div>
       </div>
-
-      <div className={selectedToilet ? "selected-toilet-card" : null}>
-        {selectedToilet && (
-          <>
-            <ItemResult data={selectedToilet} />
-          </>
-        )}
-      </div>
-    </div>
+    </>
   );
 }
