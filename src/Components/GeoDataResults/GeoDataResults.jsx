@@ -118,8 +118,6 @@ export default function GeoDataResults(props) {
           </Source>
           <GeolocateControl
             ref={geolocateControlRef}
-            showUserHeading={true}
-            trackUserLocation={true}
           />
 
           {toilets.map((toilet) => {
