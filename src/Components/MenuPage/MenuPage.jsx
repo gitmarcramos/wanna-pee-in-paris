@@ -8,8 +8,7 @@ export default function MenuPage() {
         <h2 className="title white">À Propos</h2>
         <p className="body white">
           Wanna Pee in Paris a pour objectif de vous aider à trouver rapidement
-          des toilettes publiques dans l’arrondissement Parisien que vous
-          renseignez.
+          des toilettes publiques à Paris.
         </p>
       </div>
       <div className="credits">
