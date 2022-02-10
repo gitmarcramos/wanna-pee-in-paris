@@ -130,7 +130,7 @@ input {
   top: 3.2rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 99999999;
+  z-index: 9999;
 }
 
 .illustration {
