@@ -15,6 +15,7 @@ export default function GeoDataResults(props) {
     latitude: props.coordinates.latitude,
   });
 
+  //Sets the map
   const [viewState, setViewState] = useState({
     longitude: userGeoLocation.longitude,
     latitude: userGeoLocation.latitude,
@@ -63,7 +64,10 @@ export default function GeoDataResults(props) {
       ).json();
       setToilets(APItoilets.records);
       //here set the user icon of current position
-      await geolocateControlRef.current.trigger();
+      setTimeout(() => {
+        geolocateControlRef.current.trigger();
+      }, 100);
+      // await geolocateControlRef.current.trigger();
     } catch (e) {
       console.error(e);
     }
@@ -112,7 +116,11 @@ export default function GeoDataResults(props) {
           <Source id="my-data" type="geojson" data={geojson}>
             <Layer {...layerStyle} />
           </Source>
-          <GeolocateControl ref={geolocateControlRef} />
+          <GeolocateControl
+            ref={geolocateControlRef}
+            showUserHeading={true}
+            trackUserLocation={true}
+          />
 
           {toilets.map((toilet) => {
             return (
@@ -179,7 +187,14 @@ export default function GeoDataResults(props) {
         <div className={selectedToilet ? "selected-toilet-card" : null}>
           {selectedToilet && (
             <>
-              <button className="close-selected-toilets" onClick={()=>{setSelectedToilet(null)}}>Close</button>
+              <button
+                className="close-selected-toilets"
+                onClick={() => {
+                  setSelectedToilet(null);
+                }}
+              >
+                Close
+              </button>
               <ItemResult data={selectedToilet} />
             </>
           )}
