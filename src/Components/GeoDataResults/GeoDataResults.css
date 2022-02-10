@@ -1,6 +1,5 @@
 .geoDataResults {
   width: 100%;
-  height: calc(100% - 120px);
   overflow-y: hidden;
   background-color: var(--bg);
   position: fixed;
