@@ -28,6 +28,14 @@ function App() {
     longitude: null,
   });
 
+  //reset geolocation to go back to home
+  const resetGeoloc = () => {
+    setAppGeolocation({
+      latitude: null,
+      longitude: null,
+    });
+  };
+
   // Get geolocation from te Search Component
   const getGeolocate = (geoData) => {
     setAppGeolocation(geoData);
@@ -59,7 +67,7 @@ function App() {
           />
           <IconMenu />
           {/* The search appears only if Arrondissement or Geolocation are null */}
-          {(appArrondissement === null && appGeolocation.latitude === null) && (
+          {appArrondissement === null && appGeolocation.latitude === null && (
             <Search getArr={getArr} getGeolocate={getGeolocate} />
           )}
           {/* Search results for arrondissements */}
@@ -70,9 +78,9 @@ function App() {
               geoData={appGeolocation}
             />
           )}
-          {/* Searc Results for geolocation */}
+          {/* Search Results for geolocation */}
           {appGeolocation.latitude && (
-            <GeoDataResults coordinates={appGeolocation} />
+            <GeoDataResults coordinates={appGeolocation} reset={resetGeoloc}/>
           )}
         </div>
       )}

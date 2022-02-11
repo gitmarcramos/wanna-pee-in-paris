@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "./GeoDataResults.css";
+
+//images
+import close from "./close.svg";
 //components
 import Loader from "../Loader/Loader";
 import ItemResult from "../ItemResult/ItemResult";
@@ -9,6 +12,8 @@ import Map, { GeolocateControl, Source, Layer, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function GeoDataResults(props) {
+  const reset = props.reset;
+
   //Get the user geolocation
   const [userGeoLocation, setUserGeoLocation] = useState({
     longitude: props.coordinates.longitude,
@@ -67,7 +72,6 @@ export default function GeoDataResults(props) {
       setTimeout(() => {
         geolocateControlRef.current.trigger();
       }, 100);
-      // await geolocateControlRef.current.trigger();
     } catch (e) {
       console.error(e);
     }
@@ -104,47 +108,10 @@ export default function GeoDataResults(props) {
     <>
       <Loader />
       <div className="geoDataResults">
-        <Map
-          {...viewState}
-          onMove={(evt) => setViewState(evt.viewState)}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
-          mapboxAccessToken={
-            "pk.eyJ1IjoibWFyYy1yYW1vcyIsImEiOiJja3o5d29tOWEwMHNtMnJwZ2huaWl0aTU4In0.9dpBkYt3Vcl2ylw79DTGqw"
-          }
-          style={{ height: "100%" }}
-        >
-          <Source id="my-data" type="geojson" data={geojson}>
-            <Layer {...layerStyle} />
-          </Source>
-          <GeolocateControl
-            ref={geolocateControlRef}
-          />
-
-          {toilets.map((toilet) => {
-            return (
-              <Marker
-                key={toilet.recordid}
-                latitude={toilet.geometry.coordinates[1]}
-                longitude={toilet.geometry.coordinates[0]}
-              >
-                <button
-                  className={
-                    toilet === selectedToilet
-                      ? "marker marker-clicked"
-                      : "marker"
-                  }
-                  onClick={(e) => {
-                    setSelectedToilet(toilet);
-                    e.currentTarget.classList.toggle("marker-clicked");
-                  }}
-                ></button>
-              </Marker>
-            );
-          })}
-        </Map>
-
-        <div className="pill"></div>
-        <div className="layer-card-infos" draggable="true">
+        <div className="dashboard">
+          <button className="close-map-btn" onClick={reset}>
+            Fermer
+          </button>
           <label htmlFor="range-selector" className="body-min range-label">
             <span className="sub">{toilets.length}</span> Toilettes publiques{" "}
             <br /> dans un rayon de {range} mètres
@@ -182,6 +149,43 @@ export default function GeoDataResults(props) {
           </div>
         </div>
 
+        <Map
+          {...viewState}
+          onMove={(evt) => setViewState(evt.viewState)}
+          mapStyle="mapbox://styles/mapbox/streets-v11"
+          mapboxAccessToken={
+            "pk.eyJ1IjoibWFyYy1yYW1vcyIsImEiOiJja3o5d29tOWEwMHNtMnJwZ2huaWl0aTU4In0.9dpBkYt3Vcl2ylw79DTGqw"
+          }
+          style={{ height: "70%" }}
+        >
+          <Source id="my-data" type="geojson" data={geojson}>
+            <Layer {...layerStyle} />
+          </Source>
+          <GeolocateControl ref={geolocateControlRef} />
+
+          {toilets.map((toilet) => {
+            return (
+              <Marker
+                key={toilet.recordid}
+                latitude={toilet.geometry.coordinates[1]}
+                longitude={toilet.geometry.coordinates[0]}
+              >
+                <button
+                  className={
+                    toilet === selectedToilet
+                      ? "marker marker-clicked"
+                      : "marker"
+                  }
+                  onClick={(e) => {
+                    setSelectedToilet(toilet);
+                    e.currentTarget.classList.toggle("marker-clicked");
+                  }}
+                ></button>
+              </Marker>
+            );
+          })}
+        </Map>
+
         <div className={selectedToilet ? "selected-toilet-card" : null}>
           {selectedToilet && (
             <>
@@ -191,7 +195,7 @@ export default function GeoDataResults(props) {
                   setSelectedToilet(null);
                 }}
               >
-                Close
+                <img src={close} alt="Close icon" />
               </button>
               <ItemResult data={selectedToilet} />
             </>

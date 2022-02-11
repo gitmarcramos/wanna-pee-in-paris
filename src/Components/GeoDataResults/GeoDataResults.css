@@ -2,13 +2,65 @@
   width: 100%;
   overflow-y: hidden;
   background-color: var(--bg);
-  position: fixed;
   z-index: 10000;
-  top: 120px;
-  inset: 120px 0 0 0;
+  top: 16px;
   border-radius: 1.6rem 1.6rem 0 0;
-  overflow-y: scroll;
   position: relative;
+}
+
+.geoDataResults .dashboard {
+  padding: 16px;
+  background-color: white;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: .8rem;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  height: calc(30% - 1.6rem);
+}
+
+.geoDataResults .dashboard .close-map-btn {
+  padding: 4px 8px;
+  background: none;
+  border-radius: .8rem;
+  border: 1px solid var(--contrast);
+  cursor: pointer;
+  color: var(--contrast);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.geoDataResults .dashboard .range-label {
+  width: 75%;
+  display: inline-block;
+}
+
+.geoDataResults .dashboard .checkbox-container {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.geoDataResults .dashboard .checkbox-container .checkbox-container-filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  gap: 1.6rem;
+}
+
+.geoDataResults .dashboard .checkbox-container .checkbox-container-filter label {
+  margin-right: 8px;
 }
 
 .geoDataResults .mapboxgl-ctrl-logo,
@@ -36,82 +88,20 @@
   border: 8px solid var(--contrast);
 }
 
-.geoDataResults .pill {
-  width: 50px;
-  height: 4px;
-  border-radius: 4px;
-  background-color: #c4c4c4;
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  z-index: 10;
-  cursor: move;
-}
-
-.geoDataResults .layer-card-infos {
-  position: absolute;
-  top: 0;
-  padding: 16px;
-  background-color: white;
-  opacity: .95;
-  width: 100%;
-  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: .8rem;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-
-.geoDataResults .layer-card-infos .range-label {
-  width: 75%;
-  display: inline-block;
-}
-
-.geoDataResults .layer-card-infos .checkbox-container {
-  margin-top: 8px;
-  width: 100%;
-}
-
-.geoDataResults .layer-card-infos .checkbox-container .checkbox-container-filter {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  width: 100%;
-  gap: 1.6rem;
-}
-
-.geoDataResults .layer-card-infos .checkbox-container .checkbox-container-filter label {
-  margin-right: 8px;
-}
-
 .geoDataResults .selected-toilet-card {
   width: 100%;
   position: absolute;
-  bottom: 10px;
+  bottom: 4px;
   padding: 8px;
 }
 
 .geoDataResults .close-selected-toilets {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 8px;
   border: none;
   border-radius: 8px;
-  color: white;
-  background-color: var(--main);
+  background: none;
   padding: .4rem .8rem;
   cursor: pointer;
 }
