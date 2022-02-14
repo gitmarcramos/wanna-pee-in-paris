@@ -15,7 +15,7 @@
         flex-direction: column;
         gap: .8rem;
         align-items: flex-start;
-        height: calc(30% - 1.6rem);
+        min-height: calc(30% - 1.6rem);
 
         .close-map-btn {
             padding: 4px 8px;

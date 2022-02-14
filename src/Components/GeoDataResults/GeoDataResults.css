@@ -23,7 +23,7 @@
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  height: calc(30% - 1.6rem);
+  min-height: calc(30% - 1.6rem);
 }
 
 .geoDataResults .dashboard .close-map-btn {
