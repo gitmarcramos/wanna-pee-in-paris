@@ -44,7 +44,7 @@
   width: 80%;
   border-radius: .8rem 0 0 .8rem;
   outline: none;
-  border: 2px solid var(--contrast);
+  border: 2px solid var(--main);
   padding: .7rem;
   height: 4.6rem;
 }
