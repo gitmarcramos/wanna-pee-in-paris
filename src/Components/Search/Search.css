@@ -13,7 +13,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 2.4rem;
+  gap: 1.8rem;
 }
 
 .main-search .search-options {
@@ -27,7 +27,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: .8rem;
+  gap: .4rem;
 }
 
 .main-search .search-options .search-bar {

@@ -190,7 +190,7 @@ export default function GeoDataResults(props) {
           {selectedToilet && (
             <>
               <button
-                className="close-selected-toilets"
+                className="close-svg"
                 onClick={() => {
                   setSelectedToilet(null);
                 }}

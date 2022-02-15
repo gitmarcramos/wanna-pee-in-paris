@@ -98,9 +98,19 @@ export default function Search(props) {
   return (
     <div className="main-search container">
       <h1 className="body">
-        Dans quel arrondissement de Paris cherchez-vous des toilettes publiques?
+        Trouvez facilement des toilettes publiques à Paris ! 
       </h1>
       <div className="search-options">
+
+      <button className="button button--main" onClick={handleGeoLocate}>
+          Géolocalisez-moi !
+        </button>
+        {errorGeoloc ? (
+          <ErrorMsg msg="La geolocalisation n'est pas activée sur votre navigateur" />
+        ) : null}
+
+        <span className="body-min">ou</span>
+
         <div className="search-bar">
           <input
             type="text"
@@ -108,6 +118,7 @@ export default function Search(props) {
             className="search-input"
             onInput={handleInput}
             value={input}
+            placeholder="Exemple : 75015"
           />
 
           <button className="button button--search" onClick={checkAllErrors}>
@@ -118,13 +129,8 @@ export default function Search(props) {
           <ErrorMsg msg="Veuillez entrer un arrondissement de Paris entre 75001 et 75020" />
         )}
 
-        <span className="body-min">ou</span>
-        <button className="button button--main" onClick={handleGeoLocate}>
-          Géolocalisez-moi !
-        </button>
-        {errorGeoloc ? (
-          <ErrorMsg msg="La geolocalisation n'est pas activée sur votre navigateur" />
-        ) : null}
+
+        
       </div>
     </div>
   );
