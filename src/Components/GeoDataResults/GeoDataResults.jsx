@@ -154,7 +154,7 @@ export default function GeoDataResults(props) {
           onMove={(evt) => setViewState(evt.viewState)}
           mapStyle="mapbox://styles/mapbox/streets-v11"
           mapboxAccessToken={
-            "pk.eyJ1IjoibWFyYy1yYW1vcyIsImEiOiJja3o5d29tOWEwMHNtMnJwZ2huaWl0aTU4In0.9dpBkYt3Vcl2ylw79DTGqw"
+            import.meta.env.VITE_ACCESS_TOKEN
           }
           style={{ height: "70%" }}
         >
